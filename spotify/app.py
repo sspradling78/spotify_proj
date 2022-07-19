@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from .models import DB
 from os import getenv
+from joblib import dump, load
 
 def create_app():
 
@@ -21,6 +22,8 @@ def create_app():
         DB.drop_all()
         DB.create_all()
         # TODO: insert songs into DB
+        return render_template('base.html', message='''Database has been reset.
+                               Please click here for another song.''')
 
     @app.route('/recommend', methods=['POST'])
     def recommend():
